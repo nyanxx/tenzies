@@ -6,28 +6,11 @@ export default function DieBlock() {
   const [rolled, setRolled] = React.useState(0);
   const [lockedNumbers, setLockedNumbers] = React.useState([]);
 
-  /**
-   * Tenzies: Map array to Die components
-   * Challenge:
-   *
-   * Create state to hold our array of numbers. (Initialize
-   * the state by calling our `generateAllNewDice` function so it
-   * loads all new dice as soon as the app loads)
-   *
-   * Map over the state numbers array to generate our array
-   * of Die components and render those in place of our
-   * manually-written 10 Die elements.
-   */
-
   const [randomArr, setRandomArr] = React.useState(generateAllNewDice());
   console.log(randomArr);
   function generateAllNewDice() {
     return Array.from({ length: 10 }).map(() => Math.ceil(Math.random() * 6));
   }
-
-  // React.useEffect(() => {
-  //   setRandomArr(generateAllNewDice());
-  // }, [rolled]);
 
   /** map over dice here */
   const dieElements = randomArr.map((dieNum, index) => (
@@ -39,8 +22,19 @@ export default function DieBlock() {
     />
   ));
 
+  /**
+   * Tenzies: Roll dice button
+   * Challenge: Create a `Roll Dice` button that will re-roll
+   * all 10 dice
+   *
+   * Clicking the button should generate a new array of numbers
+   * and set the `dice` state to that new array (thus re-rendering
+   * the array to the page)
+   */
+
   function handleRoll() {
     console.log("Rolled");
+    setRandomArr(generateAllNewDice());
     // setRolled((prevState) => !prevState);
     setRolled((prevState) => prevState + 1);
   }
@@ -52,7 +46,6 @@ export default function DieBlock() {
   }
 
   // timer
-
   //   console.log(lockedNumbers);
 
   return (
