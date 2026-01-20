@@ -28,7 +28,7 @@ export default function DieBlock() {
           <Die
             key={index}
             setLockedNumbers={setLockedNumbers}
-            randomNumber={Math.floor(Math.random() * 10)}
+            randomNumber={Math.ceil(Math.random() * 6)}
             rolled={rolled}
           />
         ))}
