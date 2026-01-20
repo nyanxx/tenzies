@@ -4,21 +4,20 @@ import { nanoid } from "nanoid";
 
 export default function DieBlock() {
   /**
-   * Tenzies: Change dice to objects
-   * Challenge: Update the array of numbers in state to be
-   * an array of objects instead. Each object should look like:
-   * { value: <random number>, isHeld: false }
+   * Tenzies: Styling held dice
+   * Challenge: Add conditional styling to the Die component
+   * so that if it's held (isHeld === true), its background color
+   * changes to a light green (#59E391)
    *
-   * Making this change will break parts of our code, so make
-   * sure to update things so we're back to a working state
+   * Remember: currently the Die component has no way of knowing
+   * if it's "held" or not.
    */
 
-  const [dieProperties, setDieProperties] = React.useState(
-    generateAllNewDiceProperty(),
+  const [diePropertiesArray, setDieProperties] = React.useState(
+    generateDicePropertyArray(),
   );
 
-  console.log(dieProperties);
-  function generateAllNewDiceProperty() {
+  function generateDicePropertyArray() {
     return Array.from({ length: 10 }).map(() => {
       return {
         value: Math.ceil(Math.random() * 6),
@@ -28,13 +27,13 @@ export default function DieBlock() {
     });
   }
 
-  const dieElements = dieProperties.map((dieProperty) => (
-    <Die key={dieProperty.id} value={dieProperty.value} />
+  const dieElements = diePropertiesArray.map((diePropertyObj) => (
+    <Die key={diePropertyObj.id} dieProperty={diePropertyObj} />
   ));
 
   function handleRoll() {
     console.log("Rolled");
-    setDieProperties(generateAllNewDiceProperty());
+    setDieProperties(generateDicePropertyArray());
   }
 
   // let roll_newgame = "Roll";

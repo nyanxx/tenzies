@@ -1,7 +1,5 @@
 * {
   box-sizing: border-box;
-  /* outline: 1px solid rgb(115, 10, 10) !important;
-  outline-offset: -1px; */
 }
 
 body {
@@ -42,7 +40,6 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 17.92px;
-  /* margin-bottom: 67px; */
   margin: 0 34.56px 25.6px;
 }
 
@@ -61,10 +58,6 @@ body {
 
 .die-buttons-block > .die:hover {
   cursor: pointer;
-}
-
-.locked {
-  background-color: #59e391;
 }
 
 .white-card > .roll-newgame-button {
