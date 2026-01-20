@@ -4,8 +4,8 @@ export default function App() {
     <main className="white-card">
       <h1>Tenzies</h1>
       <p>
-        Roll untill all dice are same. Click each die to freeze it at it's
-        current vlaue between rolls.
+        Roll until all dice are same. Click each die to freeze it at its current
+        value between rolls.
       </p>
       <DieBlock />
     </main>
