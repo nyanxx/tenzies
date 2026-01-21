@@ -1,53 +1,26 @@
 import React from "react";
 import Die from "./Die";
 import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
 
 export default function DieBlock() {
-  let gameWon = false;
+  /**
+   * Tenzies - End game part 3
+   * Challenge:
+   * Make the confetti drop when the game is won! 🎉🎊
+   */
 
   const [diePropertiesArray, setDiePropertiesArray] = React.useState(
     generateDicePropertyArray(),
   );
 
-  /**
-   * Tenzies: End game - part 2
-   * Challenge:
-   * Log "Game won!" to the console only if the 2 winning
-   * conditions are met.
-   *
-   * 1. all the dice are being held, and
-   * 2. all the dice have the same value
-   *
-   * For now, no need to even save a variable!
-   */
-
-  /**
-   * Tenzies: End game - part 2
-   * Challenge part 2:
-   * 1. Create a new `gameWon` variable.
-   * 2. If `gameWon` is true, change the button text to
-   *    "New Game" instead of "Roll"
-   */
-
-  if (
+  const gameWon =
     diePropertiesArray.every((obj) => obj.isHeld) &&
-    diePropertiesArray.every((obj) => obj.value === diePropertiesArray[0].value)
-  ) {
-    console.log("Game won");
-    gameWon = true;
-  }
-
-  // const heldValues = diePropertiesArray
-  //   .map((obj) => {
-  //     return obj.isHeld ? obj.value : undefined;
-  //   })
-  //   .filter(Boolean);
-  // if (heldValues.length === 10 && new Set(heldValues).size === 1) {
-  //   gameWon = true;
-  // }
+    diePropertiesArray.every(
+      (obj) => obj.value === diePropertiesArray[0].value,
+    );
 
   function hold(id) {
-    // console.log(`Function of "DieBlock" invoked from "Die" with an id: ${id}`);
     setDiePropertiesArray((prevArray) =>
       prevArray.map((obj) =>
         obj.id === id ? { ...obj, isHeld: !obj.isHeld } : obj,
@@ -92,6 +65,7 @@ export default function DieBlock() {
 
   return (
     <>
+      {gameWon && <Confetti />}
       <div className="die-buttons-block">{dieElements}</div>
       <button onClick={roleDice} className="roll-newgame-button">
         {gameWon ? "New Game" : "Roll"}
