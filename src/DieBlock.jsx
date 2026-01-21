@@ -3,30 +3,14 @@ import Die from "./Die";
 import { nanoid } from "nanoid";
 
 export default function DieBlock() {
-  /**
-   * Tenzies: Hold dice - part 2
-   * Challenge: Update the `hold` function to flip
-   * the `isHeld` property on the object in the array
-   * that was clicked, based on the `id` prop passed
-   * into the function.
-   *
-   * Hint: as usual, there's more than one way to
-   * accomplish this.
-   */
-
   function hold(id) {
     console.log(`Function of "DieBlock" invoked from "Die" with an id: ${id}`);
-    setDieProperties((prevArray) => {
-      console.log("Clicked");
-      return prevArray.map((obj) => {
-        if (obj.id === id) {
-          obj.isHeld = !obj.isHeld;
-          return obj;
-        } else {
-          return obj;
-        }
-      });
-    });
+
+    setDieProperties((prevArray) =>
+      prevArray.map((obj) =>
+        obj.id === id ? { ...obj, isHeld: !obj.isHeld } : obj,
+      ),
+    );
   }
 
   const [diePropertiesArray, setDieProperties] = React.useState(
@@ -52,9 +36,27 @@ export default function DieBlock() {
     />
   ));
 
-  function handleRoll() {
-    console.log("Rolled");
-    setDieProperties(generateDicePropertyArray());
+  /**
+   * Tenzies: Hold dice - part 3
+   * Challenge: Update the `rollDice` function to not just roll
+   * all new dice, but instead to look through the existing dice
+   * to NOT role any that are being `held`.
+   *
+   * Hint: this will look relatively similiar to the `hold`
+   * function below. When we're "rolling" a die, we're really
+   * just updating the `value` property of the die object.
+   */
+
+  function roleDice() {
+    console.log("Dice rolled");
+    // setDieProperties(generateDicePropertyArray());
+    setDieProperties((prevArray) => {
+      return prevArray.map((obj) => {
+        return obj.isHeld === true
+          ? obj
+          : { ...obj, value: Math.ceil(Math.random() * 6) };
+      });
+    });
   }
 
   // let roll_newgame = "Roll";
@@ -67,7 +69,7 @@ export default function DieBlock() {
     <>
       <div className="die-buttons-block">{dieElements}</div>
       <button
-        onClick={handleRoll}
+        onClick={roleDice}
         className="roll-newgame-button"
         id="roll-newgame"
       >
