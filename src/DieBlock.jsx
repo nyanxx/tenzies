@@ -4,14 +4,22 @@ import { nanoid } from "nanoid";
 
 export default function DieBlock() {
   /**
-   * Tenzies: Styling held dice
-   * Challenge: Add conditional styling to the Die component
-   * so that if it's held (isHeld === true), its background color
-   * changes to a light green (#59E391)
+   * Tenzies: Hold dice - part 1
+   * Challenge: Create a function `hold` that takes
+   * `id` as a parameter. For now, just have the function
+   * console.log(id).
    *
-   * Remember: currently the Die component has no way of knowing
-   * if it's "held" or not.
+   * Then, figure out how to pass that function down to each
+   * instance of the Die component so when each one is clicked,
+   * it logs its own unique ID property. (Hint: there's more
+   * than one way to make that work, so just choose whichever
+   * you want)
+   *
    */
+
+  function hold(id) {
+    console.log(`Function of "DieBlock" invoked from "Die" with an id: ${id}`);
+  }
 
   const [diePropertiesArray, setDieProperties] = React.useState(
     generateDicePropertyArray(),
@@ -27,8 +35,13 @@ export default function DieBlock() {
     });
   }
 
-  const dieElements = diePropertiesArray.map((diePropertyObj) => (
-    <Die key={diePropertyObj.id} dieProperty={diePropertyObj} />
+  const dieElements = diePropertiesArray.map((diePropertyObj, index) => (
+    <Die
+      key={diePropertyObj.id}
+      dieProperty={diePropertyObj}
+      hold={hold}
+      index={index}
+    />
   ));
 
   function handleRoll() {

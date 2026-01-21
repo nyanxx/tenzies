@@ -1,10 +1,13 @@
 import React from "react";
 
 export default function Die(props) {
-  function holdIt() {
-    console.log(`${props.dieProperty.value} hold in console`);
-    // Need to access diePropertiesArray -> Object specific to this die
-    // And change it's isHeld property to true
+  function handleClick() {
+    props.hold(props.dieProperty.id);
+    console.log({
+      Number: props.dieProperty.value,
+      id: props.dieProperty.id,
+      index: props.index,
+    });
   }
 
   const style = {
@@ -12,7 +15,7 @@ export default function Die(props) {
   };
 
   return (
-    <div className="die" style={style} onClick={holdIt}>
+    <div className="die" style={style} onClick={handleClick}>
       {props.dieProperty.value}
     </div>
   );
