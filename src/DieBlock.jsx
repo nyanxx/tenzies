@@ -6,16 +6,18 @@ export default function DieBlock() {
   function hold(id) {
     console.log(`Function of "DieBlock" invoked from "Die" with an id: ${id}`);
 
-    setDieProperties((prevArray) =>
+    setDiePropertiesArray((prevArray) =>
       prevArray.map((obj) =>
         obj.id === id ? { ...obj, isHeld: !obj.isHeld } : obj,
       ),
     );
   }
 
-  const [diePropertiesArray, setDieProperties] = React.useState(
+  const [diePropertiesArray, setDiePropertiesArray] = React.useState(
     generateDicePropertyArray(),
   );
+
+  const [gameWon, setGameWon] = React.useState(false);
 
   function generateDicePropertyArray() {
     return Array.from({ length: 10 }).map(() => {
@@ -36,44 +38,39 @@ export default function DieBlock() {
     />
   ));
 
-  /**
-   * Tenzies: Hold dice - part 3
-   * Challenge: Update the `rollDice` function to not just roll
-   * all new dice, but instead to look through the existing dice
-   * to NOT role any that are being `held`.
-   *
-   * Hint: this will look relatively similiar to the `hold`
-   * function below. When we're "rolling" a die, we're really
-   * just updating the `value` property of the die object.
-   */
-
   function roleDice() {
     console.log("Dice rolled");
-    // setDieProperties(generateDicePropertyArray());
-    setDieProperties((prevArray) => {
-      return prevArray.map((obj) => {
-        return obj.isHeld === true
-          ? obj
-          : { ...obj, value: Math.ceil(Math.random() * 6) };
+    if (gameWon) {
+      setDiePropertiesArray(generateDicePropertyArray());
+      setGameWon(false);
+    } else {
+      setDiePropertiesArray((prevArray) => {
+        return prevArray.map((obj) => {
+          return obj.isHeld === true
+            ? obj
+            : { ...obj, value: Math.ceil(Math.random() * 6) };
+        });
       });
-    });
+    }
   }
 
-  // let roll_newgame = "Roll";
-  // if (lockedNumbers.length === 10 && new Set(lockedNumbers).size === 1) {
-  //   alert("you won");
-  //   roll_newgame = "New Game";
-  // }
+  React.useEffect(() => {
+    const heldValues = diePropertiesArray
+      .map((obj) => {
+        return obj.isHeld ? obj.value : undefined;
+      })
+      .filter(Boolean);
+    // const heldValues = heldValuesMix.filter(Boolean);
+    if (heldValues.length === 10 && new Set(heldValues).size === 1) {
+      setGameWon(true);
+    }
+  }, [diePropertiesArray]);
 
   return (
     <>
       <div className="die-buttons-block">{dieElements}</div>
-      <button
-        onClick={roleDice}
-        className="roll-newgame-button"
-        id="roll-newgame"
-      >
-        {/* {roll_newgame} */}Roll
+      <button onClick={roleDice} className="roll-newgame-button">
+        {gameWon ? "New Game" : "Roll"}
       </button>
     </>
   );
