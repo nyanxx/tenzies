@@ -3,11 +3,7 @@ import React from "react";
 export default function Die(props) {
   function handleClick() {
     props.hold(props.dieProperty.id);
-    console.log({
-      Number: props.dieProperty.value,
-      id: props.dieProperty.id,
-      index: props.index,
-    });
+    console.log(props.dieProperty);
   }
 
   const style = {

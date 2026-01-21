@@ -4,21 +4,29 @@ import { nanoid } from "nanoid";
 
 export default function DieBlock() {
   /**
-   * Tenzies: Hold dice - part 1
-   * Challenge: Create a function `hold` that takes
-   * `id` as a parameter. For now, just have the function
-   * console.log(id).
+   * Tenzies: Hold dice - part 2
+   * Challenge: Update the `hold` function to flip
+   * the `isHeld` property on the object in the array
+   * that was clicked, based on the `id` prop passed
+   * into the function.
    *
-   * Then, figure out how to pass that function down to each
-   * instance of the Die component so when each one is clicked,
-   * it logs its own unique ID property. (Hint: there's more
-   * than one way to make that work, so just choose whichever
-   * you want)
-   *
+   * Hint: as usual, there's more than one way to
+   * accomplish this.
    */
 
   function hold(id) {
     console.log(`Function of "DieBlock" invoked from "Die" with an id: ${id}`);
+    setDieProperties((prevArray) => {
+      console.log("Clicked");
+      return prevArray.map((obj) => {
+        if (obj.id === id) {
+          obj.isHeld = !obj.isHeld;
+          return obj;
+        } else {
+          return obj;
+        }
+      });
+    });
   }
 
   const [diePropertiesArray, setDieProperties] = React.useState(
