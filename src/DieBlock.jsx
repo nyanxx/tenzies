@@ -4,13 +4,17 @@ import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
 
 export default function DieBlock() {
-  /**
-   * Tenzies - End game part 3
-   * Challenge:
-   * Make the confetti drop when the game is won! 🎉🎊
-   */
+  function generateDicePropertyArray() {
+    return Array.from({ length: 10 }).map(() => {
+      return {
+        value: Math.ceil(Math.random() * 6),
+        isHeld: false,
+        id: nanoid(),
+      };
+    });
+  }
 
-  const [diePropertiesArray, setDiePropertiesArray] = React.useState(
+  const [diePropertiesArray, setDiePropertiesArray] = React.useState(() =>
     generateDicePropertyArray(),
   );
 
@@ -26,16 +30,6 @@ export default function DieBlock() {
         obj.id === id ? { ...obj, isHeld: !obj.isHeld } : obj,
       ),
     );
-  }
-
-  function generateDicePropertyArray() {
-    return Array.from({ length: 10 }).map(() => {
-      return {
-        value: Math.ceil(Math.random() * 6),
-        isHeld: false,
-        id: nanoid(),
-      };
-    });
   }
 
   function roleDice() {
