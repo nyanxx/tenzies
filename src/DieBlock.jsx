@@ -32,6 +32,12 @@ export default function DieBlock() {
     );
   }
 
+  /**
+   * Tenzies: New game
+   * Challenge: Allow the user to play a new game when the
+   * button is clicked and they've already won
+   */
+
   function roleDice() {
     if (gameWon) {
       console.log("New game started");
