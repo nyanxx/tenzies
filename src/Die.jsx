@@ -3,7 +3,6 @@ import React from "react";
 export default function Die(props) {
   function handleClick() {
     props.hold(props.dieProperty.id);
-    console.log(props.dieProperty);
   }
 
   const style = {
@@ -11,8 +10,14 @@ export default function Die(props) {
   };
 
   return (
-    <div className="die" style={style} onClick={handleClick}>
+    <button
+      className="die"
+      style={style}
+      onClick={handleClick}
+      // aria-pressed={props.dieProperty.isHeld}
+      aria-label={`Die with value ${props.dieProperty.value} ${props.dieProperty.isHeld ? "is held" : "not held"} `}
+    >
       {props.dieProperty.value}
-    </div>
+    </button>
   );
 }
