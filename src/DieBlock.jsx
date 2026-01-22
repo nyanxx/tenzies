@@ -1,29 +1,9 @@
-import React from "react";
+import { useState, useRef, useEffect } from "react";
 import Die from "./Die";
 import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
-import { useEffect } from "react";
 
 export default function DieBlock() {
-  /**
-   * Tenzies: Accessibility Improvements
-   * Challenge:
-   * Make it so when the game is over, the "New Game" button
-   * automatically receives keyboard focus so keyboard users
-   * can easily trigger that button without having to tab
-   * through all the dice first.
-   *
-   * Hints:
-   * 1. Focusing a DOM element with the DOMNode.focus() method
-   *    requires accessing the native DOM node. What tool have
-   *    we learned about that allows us to do that?
-   *
-   * 2. Automatically calling the .focus() on a DOM element when
-   *    the game is won requires us to synchronize the local
-   *    `gameWon` variable with an external system (the DOM). What
-   *    tool have we learned about that allows us to do that?
-   */
-
   function generateDicePropertyArray() {
     return Array.from({ length: 10 }).map(() => {
       return {
@@ -34,7 +14,7 @@ export default function DieBlock() {
     });
   }
 
-  const [diePropertiesArray, setDiePropertiesArray] = React.useState(() =>
+  const [diePropertiesArray, setDiePropertiesArray] = useState(() =>
     generateDicePropertyArray(),
   );
 
@@ -77,7 +57,7 @@ export default function DieBlock() {
     />
   ));
 
-  const rollButton = React.useRef("null");
+  const rollButton = useRef("null");
   useEffect(() => {
     gameWon && rollButton.current.focus();
   }, [gameWon]);
