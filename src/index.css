@@ -21,14 +21,15 @@ body {
   align-items: center;
 }
 
-.white-card > h1 {
+.white-card h1 {
   color: #2b283a;
   font-size: 25.6px;
   margin-top: 32px;
   margin-bottom: 0;
+  text-align: center;
 }
 
-.white-card > p {
+.white-card p {
   color: #4a4e74;
   margin: 0 29px 23px;
   text-align: center;
